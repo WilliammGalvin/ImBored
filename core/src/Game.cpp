@@ -2,9 +2,8 @@
 // Created by Willam Galvin on 2025-01-11.
 //
 
-#include "../include/Game.hpp"
-
 #include <iostream>
+#include "../include/Game.hpp"
 
 core::Game::Game(Window* window, std::chrono::milliseconds updateDelay)
     : WindowScreen(window), _updateManager(updateDelay), _gameState(GAME) {
@@ -14,6 +13,10 @@ core::Game::Game(Window* window, std::chrono::milliseconds updateDelay)
 
 core::Game::Game(Window* window)
     : Game(window, std::chrono::milliseconds(200)) {}
+
+core::Game::~Game() {
+    delete _gameOffset;
+}
 
 void core::Game::initUpdateStateMap() {
     _updateStateMap = {
@@ -29,6 +32,17 @@ void core::Game::initRenderStateMap() {
         { GAME, [this](sf::RenderTarget& t) { onGameRender(t); } },
         { END, [this](sf::RenderTarget& t) { onEndRender(t); } }
     };
+}
+
+sf::Vector2f& core::Game::getGameOffset() {
+    if (_gameOffset == nullptr) {
+        _gameOffset = new sf::Vector2f{
+            (static_cast<float>(window->getWindowSize().x) - getGameSize().x) / 2.0f,
+            (static_cast<float>(window->getWindowSize().y) - getGameSize().y) / 2.0f
+        };
+    }
+
+    return *_gameOffset;
 }
 
 
