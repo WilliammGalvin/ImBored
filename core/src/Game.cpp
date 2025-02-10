@@ -4,17 +4,19 @@
 
 #include <iostream>
 #include "../include/Game.hpp"
+#include "../include/ScreenManager.hpp"
 
-core::Game::Game(Window* window, std::chrono::milliseconds updateDelay)
-    : WindowScreen(window), _updateManager(updateDelay), _gameState(GAME) {
+core::Game::Game(Window* window, KeybindManager* keybindManager, ScreenManager* screenManager, std::chrono::milliseconds updateDelay)
+    : WindowScreen(window, keybindManager), _updateManager(updateDelay), _screenManager(screenManager), _gameState(GAME) {
     initUpdateStateMap();
     initRenderStateMap();
 }
 
-core::Game::Game(Window* window)
-    : Game(window, std::chrono::milliseconds(200)) {}
+core::Game::Game(Window* window, KeybindManager* keybindManager, ScreenManager* screenManager)
+    : Game(window, keybindManager, screenManager, std::chrono::milliseconds(200)) {}
 
 core::Game::~Game() {
+    delete _screenManager;
     delete _gameOffset;
 }
 
@@ -45,9 +47,14 @@ sf::Vector2f& core::Game::getGameOffset() {
     return *_gameOffset;
 }
 
+core::ScreenManager* core::Game::getScreenManager() const {
+    return _screenManager;
+}
 
 void core::Game::onUpdate() {
-    if (_updateManager.isCycleOver()) {
+    const bool hasNoDelay = _updateManager.getDelay() <= 0;
+
+    if (hasNoDelay || _updateManager.isCycleOver()) {
         auto it = _updateStateMap.find(_gameState);
 
         if (it != _updateStateMap.end()) {
@@ -57,7 +64,8 @@ void core::Game::onUpdate() {
             return;
         }
 
-        _updateManager.resetLastUpdate();
+        if (!hasNoDelay)
+            _updateManager.resetLastUpdate();
     }
 }
 
@@ -71,5 +79,7 @@ void core::Game::onRender(sf::RenderTarget& target) {
     }
 }
 
-
-
+void core::Game::onKeyPressed(sf::Keyboard::Key key) {
+    if (key == keybindManager->keyBinds.at(EXIT_GAME))
+        _screenManager->exitGame();
+}

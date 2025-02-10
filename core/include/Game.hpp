@@ -11,13 +11,20 @@
 
 namespace core {
 
-    struct Game : WindowScreen {
-        Game(Window* window, std::chrono::milliseconds updateDelay);
-        Game(Window* window);
-        ~Game() override;
+    class ScreenManager;
 
-        void onUpdate() override;
-        void onRender(sf::RenderTarget& target) override;
+    class Game : WindowScreen {
+        UpdateManager _updateManager;
+        ScreenManager* _screenManager;
+
+        GameState _gameState;
+        sf::Vector2f* _gameOffset = nullptr;
+
+        std::map<GameState, std::function<void()>> _updateStateMap{};
+        std::map<GameState, std::function<void(sf::RenderTarget&)>> _renderStateMap{};
+
+        void initUpdateStateMap();
+        void initRenderStateMap();
 
     protected:
         virtual void onStartUpdate() {}
@@ -31,17 +38,20 @@ namespace core {
 
         virtual sf::Vector2f getGameSize() const = 0;
         sf::Vector2f& getGameOffset();
+        ScreenManager* getScreenManager() const;
 
-    private:
-        UpdateManager _updateManager;
-        GameState _gameState;
-        sf::Vector2f* _gameOffset = nullptr;
+    public:
+        Game(Window* window, KeybindManager* keybindManager, ScreenManager* screenManager, std::chrono::milliseconds updateDelay);
+        Game(Window* window, KeybindManager* keybindManager, ScreenManager* screenManager);
 
-        std::map<GameState, std::function<void()>> _updateStateMap{};
-        std::map<GameState, std::function<void(sf::RenderTarget&)>> _renderStateMap{};
+        ~Game() override;
 
-        void initUpdateStateMap();
-        void initRenderStateMap();
+        void onUpdate() override;
+        void onRender(sf::RenderTarget& target) override;
+
+        void onKeyPressed(sf::Keyboard::Key key) override;
+
+        virtual Game* createNewInstance() const = 0;
     };
 
 }

@@ -1,22 +1,23 @@
+#include "core/include/ScreenManager.hpp"
 #include "core/include/Window.hpp"
-#include "snake_game/include/SnakeGame.hpp"
 
 int main() {
     core::Window window;
-    snake_game::SnakeGame game(&window);
+    core::KeybindManager keybindManager;
+    core::ScreenManager screen(&window, &keybindManager);
 
     while (window.isWindowOpen()) {
-        window.onEvent([&game](sf::Event& event) {
+        window.onEvent([&screen](sf::Event& event) {
             if (event.type == sf::Event::KeyPressed)
-            game.onKeyPressed(event.key.code);
+            screen.onKeyPressed(event.key.code);
         });
 
-        window.onUpdate([&game]() {
-            game.onUpdate();
+        window.onUpdate([&screen]() {
+            screen.onUpdate();
         });
 
-        window.onRender([&game, &window]() {
-            game.onRender(window.renderWindow);
+        window.onRender([&screen, &window]() {
+            screen.onRender(window.renderWindow);
         });
     }
 

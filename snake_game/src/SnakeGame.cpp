@@ -4,15 +4,15 @@
 
 #include "../include/SnakeGame.hpp"
 
-#include <random>
-#include <__random/random_device.h>
+#include <cmath>
 
+#include "../../utils/include/RandomUtil.hpp"
 #include "../include/SnakeDir.hpp"
 
-snake_game::SnakeGame::SnakeGame(core::Window* window)
-    : Game(window), _dir(DOWN) {
+snake_game::SnakeGame::SnakeGame(core::Window* window, core::KeybindManager* keybindManager, core::ScreenManager* screenManager)
+    : Game(window, keybindManager, screenManager), _dir(DOWN) {
 
-    const int midPos = static_cast<int>(floor(_gridDim / 2.0));
+    const int midPos = static_cast<int>(std::floor(_gridDim / 2.0));
     initSegments(sf::Vector2i{ midPos, midPos });
 }
 
@@ -77,8 +77,26 @@ void snake_game::SnakeGame::renderApples(sf::RenderTarget &target) {
     }
 }
 
+void snake_game::SnakeGame::renderUI(sf::RenderTarget &target) {
+    sf::Text text;
+    text.setFont(getFont());
+    text.setCharacterSize(14);
+    text.setFillColor(sf::Color::White);
+
+    const float paddingBottom = 10.0f;
+
+    text.setString("Score: " + std::to_string(_score));
+    text.setPosition(sf::Vector2f{
+        getGameOffset().x,
+        getGameOffset().y - text.getGlobalBounds().height - paddingBottom
+    });
+
+    target.draw(text);
+}
+
+
 void snake_game::SnakeGame::onGameEnd() {
-    score = 0;
+    _score = 0;
     _segments.clear();
     _apples.clear();
 }
@@ -113,12 +131,9 @@ int snake_game::SnakeGame::hasCollidedWithApple(const sf::Vector2i& headPos) con
 }
 
 sf::Vector2i snake_game::SnakeGame::getNewApplePos() const {
-    static std::random_device rand;
-    static std::mt19937 gen(rand());
-    static std::uniform_int_distribution<> dis(0, _gridDim - 1);
-
     auto pos = sf::Vector2i{
-        dis(gen), dis(gen)
+        utils::RandomUtil::genRandomInt(0, _gridDim - 1),
+        utils::RandomUtil::genRandomInt(0, _gridDim - 1)
     };
 
     for (auto& segment : _segments) {
@@ -157,6 +172,8 @@ void snake_game::SnakeGame::onGameUpdate() {
 
             if (appleIndex >= 0) {
                 _apples.erase(_apples.begin() - appleIndex);
+                _score++;
+                _segments.emplace_back(nextPos);
             }
 
             continue;
@@ -171,9 +188,12 @@ void snake_game::SnakeGame::onGameRender(sf::RenderTarget& target) {
     renderGrid(target);
     renderApples(target);
     renderSnake(target);
+    renderUI(target);
 }
 
 void snake_game::SnakeGame::onKeyPressed(sf::Keyboard::Key key) {
+    Game::onKeyPressed(key);
+
     if ((key == sf::Keyboard::W || key == sf::Keyboard::Up) && _dir != DOWN)
         _dir = UP;
     else if ((key == sf::Keyboard::S || key == sf::Keyboard::Down) && _dir != UP)
@@ -182,4 +202,8 @@ void snake_game::SnakeGame::onKeyPressed(sf::Keyboard::Key key) {
         _dir = LEFT;
     else if ((key == sf::Keyboard::D || key == sf::Keyboard::Right) && _dir != LEFT)
         _dir = RIGHT;
+}
+
+core::Game* snake_game::SnakeGame::createNewInstance() const {
+    return new SnakeGame(window, keybindManager, getScreenManager());
 }

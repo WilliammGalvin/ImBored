@@ -4,9 +4,15 @@
 
 #include "../include/WindowScreen.hpp"
 
-core::WindowScreen::WindowScreen(Window *window) : window(window) {}
+core::WindowScreen::WindowScreen(Window* window, KeybindManager* keybindManager)
+    : window(window), keybindManager(keybindManager) {}
 
 core::WindowScreen::~WindowScreen() {
     delete window;
+    delete keybindManager;
+}
+
+sf::Font& core::WindowScreen::getFont() {
+    return _fontManager.getFont();
 }
 

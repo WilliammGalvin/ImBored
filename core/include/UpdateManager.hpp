@@ -18,6 +18,8 @@ namespace core {
 
         bool isCycleOver() const;
         void resetLastUpdate();
+
+        long long getDelay() const;
         void setDelay(std::chrono::milliseconds delay);
     };
 

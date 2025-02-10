@@ -12,6 +12,10 @@ bool core::UpdateManager::isCycleOver() const {
     return getCurrentTime() - _lastUpdate >= _delay;
 }
 
+long long core::UpdateManager::getDelay() const {
+    return _delay.count();
+}
+
 void core::UpdateManager::setDelay(std::chrono::milliseconds delay) {
     _delay = delay;
 }

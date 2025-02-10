@@ -13,7 +13,7 @@ namespace snake_game {
     class SnakeGame final : public core::Game {
         std::vector<sf::Vector2i> _segments{}, _apples{};
         SnakeDir _dir;
-        int score = 0;
+        int _score = 0;
 
         const int _gridDim = 15;
         const int _startingSegments = 3;
@@ -27,6 +27,7 @@ namespace snake_game {
         void renderGrid(sf::RenderTarget& target);
         void renderSnake(sf::RenderTarget& target);
         void renderApples(sf::RenderTarget& target);
+        void renderUI(sf::RenderTarget& target);
 
         void onGameEnd();
 
@@ -39,8 +40,10 @@ namespace snake_game {
         void onGameUpdate() override;
         void onGameRender(sf::RenderTarget &target) override;
 
+        Game* createNewInstance() const override;
+
     public:
-        SnakeGame(core::Window* window);
+        SnakeGame(core::Window* window, core::KeybindManager* keybindManager, core::ScreenManager* screenManager);
         ~SnakeGame() override = default;
 
         void onKeyPressed(sf::Keyboard::Key key) override;

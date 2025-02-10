@@ -3,8 +3,8 @@ project(ImBored)
 
 set(CMAKE_CXX_STANDARD 20)
 
-# Set the SFML installation prefix (SFML installed via Homebrew)
-set(CMAKE_PREFIX_PATH "/opt/homebrew/opt/sfml@2")
+include_directories("C:/SFML_mingw64/SFML-2.6.2/include")
+set(SFML_DIR "C:/SFML_mingw64/SFML-2.6.2/lib/cmake/SFML")
 
 # Find SFML package
 find_package(SFML 2.5 COMPONENTS system window graphics REQUIRED)
@@ -23,6 +23,22 @@ add_executable(ImBored main.cpp
         core/include/UpdateManager.hpp
         core/src/UpdateManager.cpp
         core/include/GameState.hpp
+        core/include/FontManager.hpp
+        core/src/FontManager.cpp
+        home_screen/include/HomeScreen.hpp
+        home_screen/src/HomeScreen.cpp
+        core/include/ScreenManager.hpp
+        core/src/ScreenManager.cpp
+        core/include/KeybindManager.hpp
+        core/include/Keybind.hpp
+        core/src/KeybindManager.cpp
+        frogger_game/include/FroggerGame.hpp
+        frogger_game/include/LaneTypes.hpp
+        utils/include/RandomUtil.hpp
+        utils/src/RandomUtil.cpp
+        frogger_game/src/FroggerGame.cpp
+        frogger_game/include/HazardManager.hpp
+        frogger_game/include/Hazard.hpp
 )
 
 # Link SFML libraries
