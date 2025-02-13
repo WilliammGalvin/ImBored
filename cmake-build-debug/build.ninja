@@ -133,6 +133,13 @@ build CMakeFiles/ImBored.dir/frogger_game/src/FroggerGame.cpp.obj: CXX_COMPILER_
   OBJECT_DIR = CMakeFiles\ImBored.dir
   OBJECT_FILE_DIR = CMakeFiles\ImBored.dir\frogger_game\src
 
+build CMakeFiles/ImBored.dir/core/src/GameScreen.cpp.obj: CXX_COMPILER__ImBored_unscanned_Debug C$:/Users/liamg/OneDrive/Desktop/ImBored/core/src/GameScreen.cpp || cmake_object_order_depends_target_ImBored
+  DEP_FILE = CMakeFiles\ImBored.dir\core\src\GameScreen.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -isystem C:/SFML_mingw64/SFML-2.6.2/include
+  OBJECT_DIR = CMakeFiles\ImBored.dir
+  OBJECT_FILE_DIR = CMakeFiles\ImBored.dir\core\src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target ImBored
@@ -141,7 +148,7 @@ build CMakeFiles/ImBored.dir/frogger_game/src/FroggerGame.cpp.obj: CXX_COMPILER_
 #############################################
 # Link the executable ImBored.exe
 
-build ImBored.exe: CXX_EXECUTABLE_LINKER__ImBored_Debug CMakeFiles/ImBored.dir/main.cpp.obj CMakeFiles/ImBored.dir/core/src/Window.cpp.obj CMakeFiles/ImBored.dir/snake_game/src/SnakeGame.cpp.obj CMakeFiles/ImBored.dir/core/src/Game.cpp.obj CMakeFiles/ImBored.dir/core/src/WindowScreen.cpp.obj CMakeFiles/ImBored.dir/core/src/UpdateManager.cpp.obj CMakeFiles/ImBored.dir/core/src/FontManager.cpp.obj CMakeFiles/ImBored.dir/home_screen/src/HomeScreen.cpp.obj CMakeFiles/ImBored.dir/core/src/ScreenManager.cpp.obj CMakeFiles/ImBored.dir/core/src/KeybindManager.cpp.obj CMakeFiles/ImBored.dir/utils/src/RandomUtil.cpp.obj CMakeFiles/ImBored.dir/frogger_game/src/FroggerGame.cpp.obj | C$:/SFML_mingw64/SFML-2.6.2/lib/libsfml-graphics-d.a C$:/SFML_mingw64/SFML-2.6.2/lib/libsfml-window-d.a C$:/SFML_mingw64/SFML-2.6.2/lib/libsfml-system-d.a
+build ImBored.exe: CXX_EXECUTABLE_LINKER__ImBored_Debug CMakeFiles/ImBored.dir/main.cpp.obj CMakeFiles/ImBored.dir/core/src/Window.cpp.obj CMakeFiles/ImBored.dir/snake_game/src/SnakeGame.cpp.obj CMakeFiles/ImBored.dir/core/src/Game.cpp.obj CMakeFiles/ImBored.dir/core/src/WindowScreen.cpp.obj CMakeFiles/ImBored.dir/core/src/UpdateManager.cpp.obj CMakeFiles/ImBored.dir/core/src/FontManager.cpp.obj CMakeFiles/ImBored.dir/home_screen/src/HomeScreen.cpp.obj CMakeFiles/ImBored.dir/core/src/ScreenManager.cpp.obj CMakeFiles/ImBored.dir/core/src/KeybindManager.cpp.obj CMakeFiles/ImBored.dir/utils/src/RandomUtil.cpp.obj CMakeFiles/ImBored.dir/frogger_game/src/FroggerGame.cpp.obj CMakeFiles/ImBored.dir/core/src/GameScreen.cpp.obj | C$:/SFML_mingw64/SFML-2.6.2/lib/libsfml-graphics-d.a C$:/SFML_mingw64/SFML-2.6.2/lib/libsfml-window-d.a C$:/SFML_mingw64/SFML-2.6.2/lib/libsfml-system-d.a
   FLAGS = -g
   LINK_LIBRARIES = C:/SFML_mingw64/SFML-2.6.2/lib/libsfml-graphics-d.a  C:/SFML_mingw64/SFML-2.6.2/lib/libsfml-window-d.a  C:/SFML_mingw64/SFML-2.6.2/lib/libsfml-system-d.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\ImBored.dir

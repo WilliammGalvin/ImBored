@@ -83,3 +83,20 @@ void core::Game::onKeyPressed(sf::Keyboard::Key key) {
     if (key == keybindManager->keyBinds.at(EXIT_GAME))
         _screenManager->exitGame();
 }
+
+core::Game* core::Game::createNewInstance() const {
+    return nullptr;
+}
+
+
+sf::Font& core::Game::getFont() {
+    return WindowScreen::getFont();
+}
+
+core::Window& core::Game::getWindow() const {
+    return *window;
+}
+
+core::KeybindManager& core::Game::getKeybindManager() const {
+    return *keybindManager;
+}

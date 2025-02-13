@@ -10,7 +10,6 @@
 #include "WindowScreen.hpp"
 
 namespace core {
-
     class ScreenManager;
 
     class Game : WindowScreen {
@@ -28,6 +27,7 @@ namespace core {
 
     protected:
         virtual void onStartUpdate() {}
+
         virtual void onStartRender(sf::RenderTarget& target) {}
 
         virtual void onGameUpdate() {}
@@ -51,7 +51,12 @@ namespace core {
 
         void onKeyPressed(sf::Keyboard::Key key) override;
 
-        virtual Game* createNewInstance() const = 0;
+        virtual Game* createNewInstance() const;
+
+        sf::Font& getFont();
+
+        Window& getWindow() const;
+        KeybindManager& getKeybindManager() const;
     };
 
 }

@@ -39,6 +39,8 @@ add_executable(ImBored main.cpp
         frogger_game/src/FroggerGame.cpp
         frogger_game/include/HazardManager.hpp
         frogger_game/include/Hazard.hpp
+        core/include/GameScreen.hpp
+        core/src/GameScreen.cpp
 )
 
 # Link SFML libraries

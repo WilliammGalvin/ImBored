@@ -6,6 +6,7 @@
 
 #include "../../frogger_game/include/FroggerGame.hpp"
 #include "../../snake_game/include/SnakeGame.hpp"
+#include "../include/GameScreen.hpp"
 
 core::ScreenManager::ScreenManager(Window* window, KeybindManager* keybindManager)
     : WindowScreen(window, keybindManager), _homeScreen(home_screen::HomeScreen{ window, keybindManager, this }) {
@@ -57,7 +58,12 @@ void core::ScreenManager::onKeyPressed(sf::Keyboard::Key key) {
 }
 
 void core::ScreenManager::launchGame(int gameIndex) {
-    _currentScreen = getCurrentGame(gameIndex)->createNewInstance();
+    if (getCurrentGame(gameIndex) == nullptr) {
+        std::cerr << "Not a valid game index." << std::endl;
+        return;
+    }
+
+    _currentScreen = new GameScreen(getCurrentGame(gameIndex)->createNewInstance(), window, keybindManager);
     _inGame = true;
 }
 

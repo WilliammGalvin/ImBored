@@ -157,5 +157,5 @@ sf::Vector2f frogger_game::FroggerGame::getGameSize() const {
 }
 
 core::Game* frogger_game::FroggerGame::createNewInstance() const {
-    return new FroggerGame(window, keybindManager, getScreenManager());
+    return new FroggerGame(&getWindow(), &getKeybindManager(), getScreenManager());
 }

@@ -205,5 +205,5 @@ void snake_game::SnakeGame::onKeyPressed(sf::Keyboard::Key key) {
 }
 
 core::Game* snake_game::SnakeGame::createNewInstance() const {
-    return new SnakeGame(window, keybindManager, getScreenManager());
+    return new SnakeGame(&getWindow(), &getKeybindManager(), getScreenManager());
 }

@@ -37,11 +37,12 @@ namespace frogger_game {
 
         int getTotalLaneCount() const;
         sf::Vector2f getGameSize() const override;
-        Game* createNewInstance() const override;
 
     public:
         FroggerGame(core::Window* window, core::KeybindManager* keybindManager, core::ScreenManager* screenManager);
         ~FroggerGame() override = default;
+
+        Game* createNewInstance() const override;
     };
 
 }

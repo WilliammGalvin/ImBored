@@ -40,13 +40,14 @@ namespace snake_game {
         void onGameUpdate() override;
         void onGameRender(sf::RenderTarget &target) override;
 
-        Game* createNewInstance() const override;
-
     public:
         SnakeGame(core::Window* window, core::KeybindManager* keybindManager, core::ScreenManager* screenManager);
         ~SnakeGame() override = default;
 
         void onKeyPressed(sf::Keyboard::Key key) override;
+
+        Game* createNewInstance() const override;
+
     };
 
 }
